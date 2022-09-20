@@ -22,7 +22,7 @@ class EstEnseignerSeeder extends Seeder
                 'annee' =>null, 
                 'duree' => null, 
                 'heure_debut' =>null, 
-                'coeficient' => 1,
+                'coeficient' => 2,
                 'nbr_heure_total' => 30, 
                 'estEnseigner_state' => true, 
                 'niveau_id' => 12,

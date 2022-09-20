@@ -107,6 +107,7 @@ class UsersHelpers
        foreach ($anneeScolaireEncours as $anneeScolaireEncour) {
         # code...
             $result = $anneeScolaireEncour->libelle_as;
+            
        }
        return $result;
     }

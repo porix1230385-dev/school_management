@@ -3,14 +3,18 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NoteController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\ProfilesController;
 use App\Http\Controllers\Api\ClasseController;
 use App\Http\Controllers\Api\NiveauController;
 use App\Http\Controllers\Api\ParentController;
+use App\Http\Controllers\Api\AbsenceController;
+use App\Http\Controllers\Api\AccountController;
 use App\Http\Controllers\Api\StudentController;
 use App\Http\Controllers\Api\SubjectController;
+use App\Http\Controllers\Api\TimeTableController;
 use App\Http\Controllers\Api\EnseignantController;
 use App\Http\Controllers\Api\EvaluationController;
 use App\Http\Controllers\Api\InstituteurController;
@@ -27,22 +31,38 @@ use App\Http\Controllers\Api\InstituteurController;
 |
 */
 
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::post('add-code',[UserController::class,'addCode']);
 
 //! Authentication routes
-// Route::group(['prefix' => 'auth'], function () {
-//     // logging in
-//     Route::post('/login', [AuthController::class, 'login']);
-//     // routes with authentication
-//     Route::group(['middleware' => 'auth:api'], function () {
-//         // logging out
-//         Route::post('/logout', [AuthController::class, 'logout']);
-//         // user infos
-//         Route::get('/user', [AuthController::class, 'user']);
-//     });
-// });
+Route::group(['prefix' => 'auth'], function () {
+    // logging in
+    Route::post('/login', [AuthController::class, 'login']);
+    // routes with authentication
+    Route::group(['middleware' => 'auth:api'], function () {
+        // logging out
+        Route::post('/logout', [AuthController::class, 'logout']);
+        // user infos
+        Route::get('/user', [AuthController::class, 'user']);
+    });
+});
+
+// bd Utilisateur: c1884357c_folo_guest_2022_2023
+//Base de données: c1884357c_school_management
+// username = folo_guest_2022_2023 password = folo2022@2023
+//! Account routes
+Route::group(['prefix' => 'account'], function () {
+    // reset password
+    Route::post('/reset-password', [AccountController::class, 'resetPassword']);
+    // routes with authentication
+    Route::group(['middleware' => 'auth:api'], function () {
+        // change password
+        Route::put('/change-password', [AccountController::class, 'changePassword']);
+    });
+});
 // Route::get('students', [StudentController::class, 'index']);
 Route::get('users', [UserController::class, 'index']);
 
@@ -74,7 +94,7 @@ Route::group(['prefix' =>'parents'], function (){
     Route::get('/all',[ParentController::class,'getAllParents']);
     // get parent by student
     Route::get('/by-student/{student_mat}', [ParentController::class, 'getParentByStudentMatricule']);
-    Route::get('/my-children/{parent_id}', [ParentController::class, 'getMyChildren']);
+    Route::get('/my-children/{parent_id}/{year}', [ParentController::class, 'getMyChildren']);
     // routes with authentication
     // Route::group(['middleware' => 'auth:api'], function () {
     // });
@@ -139,6 +159,13 @@ Route::group(['prefix' => 'absences'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
     });
 });
+
+// timeTable routes
+Route::group(['prefix' => 'timeTable'],function(){
+    Route::get('/teacher/{teacher_id}',[TimeTableController::class,'getTeacherTimeTable']);
+    Route::get('/classe/{my_class_id}',[TimeTableController::class,'getTimetableByClass']);
+});
+
 
 Route::resource('users', UserController::class);
 // Route::resource('students', StudentRecordController::class);

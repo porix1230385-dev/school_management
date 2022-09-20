@@ -32,5 +32,19 @@ return new class extends Migration
             // $table->renameColumn('appreciation', 'appréciation');
             DB::statement('ALTER TABLE notes RENAME COLUMN appreciation TO appréciation');
         });
+
+
+        // Schema::create('matiere_classetts', function (Blueprint $table) {
+        //     $table->id();
+        //     $table->string('jour',100);
+        //     $table->string('hm_debut')->nullable();
+        //     $table->integer('duree_H')->nullable();
+        //     $table->integer('duree_M')->nullable();
+        //    //getDaysOfTheWeek
+        //     $table->foreignId('classe_id')->constrained();
+        //     $table->foreignId('matiere_id')->constrained();
+        //     $table->foreignId('annee_scolaire_id')->constrained();
+        //     $table->timestamps();
+        // });
     }
 };

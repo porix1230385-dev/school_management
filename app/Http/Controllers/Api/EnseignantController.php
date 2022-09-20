@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use Exception;
 use App\helpers\Qs;
+use App\Models\Classe;
+use App\Models\Matiere;
 use App\Models\Enseignant;
 use App\Http\Controllers\Controller;
 
@@ -16,19 +18,43 @@ class EnseignantController extends Controller
         try{
             //get all records 
             $teachers = Enseignant::join('users', 'users.id','=','enseignants.user_id')
-                        ->select('users.*','enseignants.matricule','enseignants.id')
+                        ->select('users.*','enseignants.id as ID_teacher','enseignants.matricule as matricule')
                         ->get();
-            // dd($teachers);
-            // assign subject to each teacher
-        //   $teacher_subject = Qs::assignSubjectToEachTeacher($teachers);
+                        // assign subject to each teacher
+                        foreach ($teachers as $teacher) {
+                            // dd($teachers);
+                            $concerned_subject = Matiere::join('enseigners as ens','ens.matiere_id','=','matieres.id')
+                                        ->join('enseignants as e2','e2.id','=','ens.enseignant_id')
+                                        ->where('e2.id',$teacher->id)
+                                        ->select('matieres.id as ID_subject','matieres.nom_matiere as subject_name')
+                                        ->distinct('ens.matiere_id')
+                                        ->get();
+                            $teacher['subjects'] = $concerned_subject;
+                            // 
+                            // assign class to each teacher
+                            foreach ($teacher['subjects'] as $subject) {
+                                $my_class = Classe::join('enseigners as ens','ens.matiere_id','=','classes.id')
+                                        ->join('matieres as mat','mat.id','=','ens.matiere_id')
+                                        ->where([
+                                            'mat.id'=>$subject->ID_subject,
+                                            'ens.enseignant_id' => $teacher->id
+                                        ])
+                                        ->select(
+                                            'classes.id as ID_class',
+                                            'classes.libelle_classe as class_name'
+                                        )
+                                        // ->distinct('ens.matiere_id')
+                                        ->get();
+                               $subject['class'] = $my_class;
+                            }
+                        }
+            // $teacher_subject = Qs::assignSubjectToEachTeacher($teachers);
               
         //   dd($teacher_subject);
             return response()->json([
                 'success' => true,
-                'enseignants'=>$teachers,
-                // 'matieres' => $teacher_subject,
-                // 'count_matieres' => $matieres_teacher->nbr_matiere, 
-                'count_enseignants' => count($teachers)
+                'teachers'=>$teachers,
+                'count_teachers' => count($teachers) 
             ]);
 
         }catch(Exception $exc){

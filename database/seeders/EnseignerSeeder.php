@@ -21,15 +21,75 @@ class EnseignerSeeder extends Seeder
             [
                 'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
                 'enseignant_id' =>9,
-                'classe_secondaire_id' =>44,
+                'classe_secondaire_id' =>42,
                 'matiere_id'=>12
             ],
             [
                 'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
-                'enseignant_id' =>8,
-                'classe_secondaire_id' =>41,
-                'matiere_id'=>16
+                'enseignant_id' =>9,
+                'classe_secondaire_id' =>15,
+                'matiere_id'=>12
             ],
+            [
+                'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+                'enseignant_id' =>9,
+                'classe_secondaire_id' =>18,
+                'matiere_id'=>12
+            ],
+            [
+                'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+                'enseignant_id' =>9,
+                'classe_secondaire_id' =>16,
+                'matiere_id'=>12
+            ],
+            [
+                'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+                'enseignant_id' =>9,
+                'classe_secondaire_id' =>17,
+                'matiere_id'=>12
+            ],
+            [
+                'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+                'enseignant_id' =>9,
+                'classe_secondaire_id' =>19,
+                'matiere_id'=>12
+            ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>13,
+            //     'classe_secondaire_id' =>15,
+            //     'matiere_id'=>11
+            // ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>13,
+            //     'classe_secondaire_id' =>18,
+            //     'matiere_id'=>11
+            // ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>13,
+            //     'classe_secondaire_id' =>16,
+            //     'matiere_id'=>11
+            // ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>13,
+            //     'classe_secondaire_id' =>17,
+            //     'matiere_id'=>11
+            // ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>13,
+            //     'classe_secondaire_id' =>19,
+            //     'matiere_id'=>11
+            // ],
+            // [
+            //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
+            //     'enseignant_id' =>8,
+            //     'classe_secondaire_id' =>41,
+            //     'matiere_id'=>16
+            // ],
             // [
             //     'annee_enseigner'=>UsersHelpers::getAnneeEnCour(),
             //     'enseignant_id' =>2,

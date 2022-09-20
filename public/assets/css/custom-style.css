@@ -1,0 +1,46 @@
+.email-footer {
+    margin-top: 24px;
+}
+
+.custom-login-header-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.custom-login-logo {
+    width: 150px;
+    height: 150px;
+    object-fit: contain;
+    margin-bottom: 25px;
+}
+
+.custom-timetable-header {
+    display: flex;
+    justify-content: space-between;
+    width: 70%;
+    margin-top: 40px;
+}
+
+.custom-print-btn {
+    padding: 15px 0px;
+    border: none;
+    background-color: #fff2e5;
+    font-weight: bolder;
+    color: #102947;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    right: 0;
+    z-index: 99;
+}
+
+.custom-back-btn {
+    padding: 10px 15px;
+    border: none;
+    background-color: #fff2e5;
+    font-weight: bolder;
+    color: #102947;
+    text-decoration: none;
+    border-radius: 30px;
+}

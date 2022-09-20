@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Database\Seeders\JourSeeder;
 use Database\Seeders\NoteSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\CycleSeeder;
@@ -25,6 +26,7 @@ use Database\Seeders\AnneeScolaireSeeder;
 use Database\Seeders\AdministrationSeeder;
 use Database\Seeders\ClassePrimaireSeeder;
 use Database\Seeders\TypeEvaluationSeeder;
+use Database\Seeders\MatiereClassettSeeder;
 use Database\Seeders\ClasseSecondaireSeeder;
 
 class DatabaseSeeder extends Seeder
@@ -59,7 +61,9 @@ class DatabaseSeeder extends Seeder
             EstEnseignerSeeder::class,
             TypeEvaluationSeeder::class,
             EvaluationSeeder::class,
-            NoteSeeder::class
+            NoteSeeder::class,
+            MatiereClassettSeeder::class,
+            JourSeeder::class
         ]);
     }
 }

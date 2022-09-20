@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('versements', function (Blueprint $table) {
+        Schema::create('versements',function (Blueprint $table) {
             $table->id();
             $table->string('lib_versement',100)->nullable();
             $table->integer('montant_versement')->nullable();

@@ -18,7 +18,8 @@ class EnseignantSeeder extends Seeder
     {
         $data = [
             // ['matricule'=>strtoupper(Str::random(3)),'user_id' => 26],
-            ['matricule'=>strtoupper(Str::random(3)),'user_id' => 17]
+            ['matricule'=>strtoupper(Str::random(3)),'user_id' => 35],
+            ['matricule'=>strtoupper(Str::random(3)),'user_id' => 36]
         ];
         DB::table('enseignants')->insert($data);
     }

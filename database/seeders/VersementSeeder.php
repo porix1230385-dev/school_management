@@ -17,28 +17,17 @@ class VersementSeeder extends Seeder
     {
         //
         $data = [
-            //(id_versement BIGINT, lib_versement VARCHAR(50), montant CURRENCY, #id_eleve, #id_anneescolaire);
             [
-                'lib_versement'=>'PREMIER VERSEMENT',
-                'montant_versement'=> 95000,
-                'versement_max'=>4,
-                'eleve_id' => 1,
-                'annee_scolaire_id'=>1
-            ],
+                'lib_vers'=>'1er VERSEMENT'],
             [
-                'lib_versement'=>'PREMIER VERSEMENT',
-                'montant_versement'=> 95000,
-                'versement_max'=>4,
-                'eleve_id' => 2,
-                'annee_scolaire_id'=>1
-            ],
+                'lib_vers'=>'2eme VERSEMENT'],
             [
-                'lib_versement'=>'PREMIER VERSEMENT',
-                'montant_versement'=> 120000,
-                'versement_max'=>5,
-                'eleve_id' => 3,
-                'annee_scolaire_id'=> 1
-            ]
+                'lib_vers'=>'3eme VERSEMENT'],
+            [
+                'lib_vers'=>'4eme VERSEMENT'],
+            [
+                'lib_vers'=>'5eme VERSEMENT']
+           
         ];
         DB::table('versements')->insert($data);
     }

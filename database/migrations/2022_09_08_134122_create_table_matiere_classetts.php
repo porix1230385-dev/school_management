@@ -15,13 +15,11 @@ return new class extends Migration
     {
         Schema::create('matiere_classetts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('jour');
-            // $table->date('annee');
-            $table->string('duree')->nullable();
-            $table->time('heure_debut');
-            // $table->integer('coeficient');
-            $table->integer('nbr_heure_total');
-            // $table->boolean('estEnseigner_state');
+            $table->foreignId('jour_id')->constrained();
+            $table->string('hm_debut')->nullable();
+            $table->integer('duree_H')->nullable();
+            $table->integer('duree_M')->nullable();
+           //getDaysOfTheWeek
             $table->foreignId('classe_id')->constrained();
             $table->foreignId('matiere_id')->constrained();
             $table->foreignId('annee_scolaire_id')->constrained();

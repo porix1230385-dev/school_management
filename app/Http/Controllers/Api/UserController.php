@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
  
-use App\Http\Controllers\Api\BaseController as BaseController;
-use App\Models\User;
-use Illuminate\Http\Request;
-// use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use Validator;
+use App\Models\User;
+use Illuminate\Support\Str;
+// use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Controllers\Api\BaseController as BaseController;
 
 class UserController extends BaseController
 {
@@ -148,5 +150,32 @@ class UserController extends BaseController
             'success' => true,
             'message' => 'suppression effectuée avec success'
         ]);
+    }
+
+    public function addCode()
+    {
+        
+        $users = User::all();
+        foreach($users as $user)
+        {
+            $code_user = strtoupper(Str::random(10));
+            if($user->code != null)
+            {
+                $req = DB::statement("UPDATE users set code $code_user WHERE users.id = $user->id");
+                if($req)
+                    return response()->json([
+                        'success' => true,
+                        'update successful'
+                    ]);
+                else
+                return response()->json([
+                    'success' => false,
+                    'update fail'
+                ]);
+            }
+            else {
+                continue;
+            }
+        }
     }
 }
