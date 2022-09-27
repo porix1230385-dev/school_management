@@ -46,7 +46,7 @@ class AuthController extends Controller
                 'password' => 'required'
             ]); 
             // die();
-            $profile = $request->get('profile');
+           
             $request['email'] = $request['matricule'] = $request->get('identity');
             
             $credentials =  [
@@ -64,11 +64,20 @@ class AuthController extends Controller
 
              // checking profile 
             $profile = $request['profile'];
-            $checkProfile = AvoirProfil::where([
+            $checkProfile = AvoirProfil::join('profils','profils.id','=','avoir_profils.profil_id')
+        ->where(
+                [
                 'profil_id'=>$profile,
                 'user_id' =>$request->user()->id
-                ])->first();
-           
+                ]
+            )
+            ->select(
+                    'profils.id as IDProfile',
+                    'profils.lib_profil as profileName'
+                )
+            ->first();
+        //    echo var_dump($checkProfile);
+        //    die();
             if(!$checkProfile)
             {
                 return response()->json([
@@ -79,8 +88,10 @@ class AuthController extends Controller
             }
             
             // add profile attribute to auth session 
-            $my_profile = Auth::user()->setAttribute('my_profile',$checkProfile);
-
+            // $my_profile = Auth::user()->setAttribute('my_profile',$checkProfile);
+            $my_profile = session(['my_profile' => $checkProfile]);
+            // echo session('my_profile')->profileName;
+            // die();
             //  generate api consumer token
              $tokenResult = $request->user()->createToken('Personal Access Token');
              $token = $tokenResult->token;
@@ -100,15 +111,15 @@ class AuthController extends Controller
                 $this->loggingIn($user);
     
                 // get other profile if exist
-                $other_profile = AvoirProfil::join('profils','profils.id','=','avoir_profils.profil_id')
-                ->where('user_id',$request->user()->id)
-                ->where('profil_id','!=',$checkProfile->profil_id)
-                ->select(
-                    'profils.id as IDProfile',
-                    'lib_profil as profileName'
-                    )
-                ->get();
-                
+                // $other_profile = AvoirProfil::join('profils','profils.id','=','avoir_profils.profil_id')
+                // ->where('user_id',$request->user()->id)
+                // ->where('profil_id','!=',$checkProfile->profil_id)
+                // ->select(
+                //     'profils.id as IDProfile',
+                //     'lib_profil as profileName'
+                //     )
+                // ->get();
+                // $photo = asset('storage/')
                  // visualize response
                  return response()->json([
                     'success' => true,
@@ -119,8 +130,9 @@ class AuthController extends Controller
                         'nom' => $user->nom,
                         'prenom' => $user->prenom,
                         // 'user_profile' => $checkProfile->profil->lib_profil,
-                        'my_profile_id' => Auth::user()->my_profile->profil_id,
-                        'my_profile_name' => Auth::user()->my_profile->profil->lib_profil,
+                        // 'my_profile_id' => Auth::user()->my_profile->profil_id,
+                        'my_profile_id' => $checkProfile->IDProfile,
+                        'my_profile_name' => $checkProfile->profileName,
                         // 'other_profile' => ($other_profile) ? $other_profile:'',
                         'email' => $user->email,
                         'phone' => $user->telephone1,
@@ -159,6 +171,9 @@ class AuthController extends Controller
                 'is_connected' => false,
             ]);
 
+            // remove item from session
+            session()->flush('my_profile');
+
            // revoke user's token and ask bot to send logout log
            $request->user()->token()->revoke();
            $this->loggedOut($user);
@@ -188,8 +203,16 @@ class AuthController extends Controller
             // organize datas
             $datas = [
                 'success' => true,
-                'user' => $request->user(),
-            ];
+                'user' => $request->user()->only(['nom',
+                'prenom',
+                'email',
+                'genre',
+                'adresse',
+                'telephone1',
+                'telephone2',
+                'matricule',
+                'profile_image_url'
+            ])];
             // visualize response
             return response()->json($datas);
         } catch (Exception $exc) {

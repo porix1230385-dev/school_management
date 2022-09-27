@@ -17,6 +17,6 @@ class TeamAccount
      */
     public function handle($request, Closure $next)
     {
-        return (Auth::check() && Qs::userIsTeamAccount()) ? $next($request) : redirect()->route('login');
+        return (Auth::check() && Qs::userIsTeamAccount()) ? $next($request) : redirect()->route('login.index');
     }
 }

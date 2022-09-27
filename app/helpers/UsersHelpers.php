@@ -90,10 +90,11 @@ class UsersHelpers
 
     // }
 
-    public static function getDefaultUserImage()
-    {
-        return 'images/user.png';
-    }
+    // get default user image
+    // public static function getDefaultUserImage()
+    // {
+    //     return '/storage/default_user_image/images/user.png';
+    // }
 
     public static function  getAdminFonction()
     {

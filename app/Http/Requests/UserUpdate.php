@@ -20,12 +20,14 @@ class UserUpdate extends FormRequest
     public function rules()
     {
         return [
-            'telephone1' => 'sometimes|nullable|string|min:6|max:20',
-            'telephone2' => 'sometimes|nullable|string|min:6|max:20',
+            'nom'=>'sometimes|nullable|string',
+            'prenom'=>'sometimes|nullable|string',
             'email' => 'sometimes|nullable|email|max:100|unique:users,id',
+            'telephone1' => 'sometimes|nullable|string|min:10|max:20',
+            'telephone2' => 'sometimes|nullable|string|min:10|max:20',
+            'address' => 'required|string|min:6|max:120',
             // 'matricule' => 'sometimes|nullable|alpha_dash|min:8|max:100|unique:users',
             'photo' => 'sometimes|nullable|image|mimes:jpeg,gif,png,jpg|max:2048',
-            'address' => 'required|string|min:6|max:120'
         ];
     }
 

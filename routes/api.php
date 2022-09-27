@@ -35,7 +35,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('add-code',[UserController::class,'addCode']);
+// Route::post('add-code',[UserController::class,'addCode']);
 
 //! Authentication routes
 Route::group(['prefix' => 'auth'], function () {
@@ -64,6 +64,7 @@ Route::group(['prefix' => 'account'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         // change password
         Route::put('/change-password', [AccountController::class, 'changePassword']);
+        Route::post('/update-profile', [AccountController::class, 'update_profile']);
     });
 });
 // Route::get('students', [StudentController::class, 'index']);
@@ -99,8 +100,9 @@ Route::group(['prefix' =>'parents'], function (){
     Route::get('/by-student/{student_mat}', [ParentController::class, 'getParentByStudentMatricule']);
     Route::get('/my-children/{parent_id}/{year}', [ParentController::class, 'getMyChildren']);
     // routes with authentication
-    // Route::group(['middleware' => 'auth:api'], function () {
-    // });
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('/my-children/{parent_id}/{year}', [ParentController::class, 'getMyChildren']);
+    });
 
 });
 

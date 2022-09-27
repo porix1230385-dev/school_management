@@ -3,9 +3,10 @@
 namespace App\Repositories;
 
 use App\Models\User;
-use App\Models\UserType;
-use App\Models\BloodGroup;
-use App\Models\StaffRecord;
+use App\Models\Profil;
+// use App\Models\UserType;
+// use App\Models\BloodGroup;
+// use App\Models\StaffRecord;
 
 
 class UserRepo
@@ -29,17 +30,17 @@ class UserRepo
 
     // public function getUserByType($type)
     // {
-    //     return User::where(['user_type' => $type])->orderBy('name', 'asc')->get();
+    //     return User::where(['user_type' => $type])->orderBy('nom', 'asc')->get();
     // }
 
     public function getAllTypes()
     {
-        return UserType::all();
+        return Profil::all();
     }
 
     public function findType($id)
     {
-        return UserType::find($id);
+        return Profil::find($id);
     }
 
     // find by id
@@ -55,7 +56,7 @@ class UserRepo
 
     public function getAll()
     {
-        return User::orderBy('name', 'asc')->get();
+        return User::orderBy('nom', 'asc')->get();
     }
 
     // public function getPTAUsers()

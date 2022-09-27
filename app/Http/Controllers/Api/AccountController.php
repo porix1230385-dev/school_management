@@ -6,7 +6,7 @@ use Hash;
 use Exception;
 use Carbon\Carbon;
 use App\Helpers\Qs;
-use App\Models\User;
+// use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\PasswordReset;
@@ -74,14 +74,26 @@ class AccountController extends Controller
     }
 
     // update profile 
-    public function update_profile(UserUpdate $req)
+    public function update_profile(Request $req)
     {
         try{
             $user = Auth::user();
+            // dd($user);
             // strtoupper(Str::random(10)),
-            // $d = $user->matricule ? $req->only(['email', 'telephone1','telephone2', 'address']) : $req->only(['email', 'telephone1', 'telephone2', 'address']);
-            $d = $req->only(['email', 'telephone1','address']);
-            if(!$user->email && !$req->email){
+            // $d = $user->matricule ? $req->only(['nom','prenom','email', 'telephone1','telephone2', 'address']) : $req->only(['email', 'telephone1', 'telephone2', 'address']);
+            $req->validate([
+                'nom'=>'sometimes|nullable|string',
+                'prenom'=>'sometimes|nullable|string',
+                'email' => 'sometimes|nullable|email|max:100|unique:users,id',
+                'telephone1' => 'sometimes|nullable|string|min:10|max:20',
+                'telephone2' => 'sometimes|nullable|string|min:10|max:20',
+                'address' => 'sometimes|string|min:6|max:120',
+                // 'matricule' => 'sometimes|nullable|alpha_dash|min:8|max:100|unique:users',
+                'photo' => 'sometimes|nullable|image|mimes:jpeg,gif,png,jpg|max:2048'
+            ]);
+
+            $d =  $req->only(['nom','prenom','email', 'telephone1','telephone2', 'address','photo']);
+            if(!$user->matricule && !$req->email){
                 return response()->json([
                     "success" => false,
                     "error_type" => "USER INVALID",
@@ -89,16 +101,32 @@ class AccountController extends Controller
                 ]);
             }
             
-            $user_type_name = $user->my_profile->lib_profil;
-            $code = $user->code;
-
+            // $user_type_name = session('my_profile')->profileName;
+            ($user->code && $user->code != null) ? $code = $user->code : $code = strtoupper(Str::random(10));
+            // echo $code;
+            // die();
+            // $photo = $req->file('photo');
+            // echo $photo;
+            // die();
             if($req->hasFile('photo')) {
                 $photo = $req->file('photo');
+                // echo $photo;
+                // die();
                 $f = Qs::getFileMetaData($photo);
-                $f['name'] = 'photo.' . $f['ext'];
-                $f['path'] = $photo->storeAs(Qs::getUploadPath($user_type).$code, $f['name']);
-                $d['photo'] = asset('storage/' . $f['path']);
+                $f['name'] = $code.'.'. $f['ext'];
+                // echo var_dump($f);
+                // die();
+                // $f['path'] = Storage::disk('public')->put('users',$f['name']);
+                $f['path'] = $photo->storeAs('users',$f['name'],'public');
+                // $f['path'] = $photo->storeAs(Qs::getUploadPath(),$f['name']);
+                $d['photo'] = $f['path'];
+
+                // echo var_dump($d);
+                // die();
+                // dd($f);
+                // $d['photo'] = $f['path'];
             }
+          
 
             $this->user->update($user->id, $d);
             return response()->json([

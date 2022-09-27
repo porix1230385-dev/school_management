@@ -21,4 +21,17 @@ class SettingRepo
     {
         return Setting::all();
     }
+
+    // public function add($type,$description)
+    // {
+    //     $setting =  new Setting();
+    //     $setting->type = $request->type;
+    //     $setting->description = $request->description;
+    //     $save = $setting->save();
+    //     return $save;
+    //     // return Setting::create([
+    //     //     'type' =>$type,
+    //     //     'description'=>$description
+    //     // ]);
+    // }
 }

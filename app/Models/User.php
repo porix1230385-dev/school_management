@@ -2,18 +2,19 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\helpers\Qs;
 use App\Models\Eleve;
 // use App\Models\Parent;
 use App\Models\Enseignant;
 use App\Models\Instituteur;
-use App\Models\Administration;
 use App\Models\Nationalities;
+use App\Models\Administration;
 // use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -34,6 +35,8 @@ class User extends Authenticatable
     'confirmation_token'
 ];
 
+public $appends = ['profile_image_url',];
+
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -52,6 +55,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+        public function getProfileImageUrlAttribute(){
+            if($this->photo)
+            {
+                return asset('storage/'.$this->photo);
+            }
+            else{
+                return asset(Qs::getDefaultUserImage());
+            }
+            // return asset('/storage/uploads/profile_images/'.$this->photo);
+
+        }
 
         // function administrations
         public function administrations()

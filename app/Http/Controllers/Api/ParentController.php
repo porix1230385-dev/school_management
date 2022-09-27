@@ -135,7 +135,7 @@ class ParentController extends Controller
                     // dd($scolarite_infos);
                     $child['scolarite'] = $scolarite_infos;
                         // time table
-                        $timeTable = Qs::getTimetableByClass($child->id_classe);
+                        $timeTable = Qs::getTimetableByClass($child->id_classe,$year_id);
                         $child['timeTable'] = $timeTable;
                        // get all child subject by class level
                        $subjects = Matiere::join('est_enseigners as ee','ee.matiere_id','=','matieres.id')

@@ -83,7 +83,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'fr',
 
     /*
     |--------------------------------------------------------------------------
@@ -215,6 +215,8 @@ return [
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
        'PDF' => Barryvdh\DomPDF\ServiceProvider::class,
+       'Menu' => App\Helpers\MenusHelpers::class,
+       'Qs' => App\Helpers\Qs::class,
     ])->toArray(),
 
 ];

@@ -7,6 +7,7 @@ use App\Models\Jour;
 // use App\Models\Enseigner;
 use App\Models\Classe;
 use App\Models\Niveau;
+use App\Models\Profil;
 use App\Models\Absence;
 use App\Models\Matiere;
 use App\Models\Periode;
@@ -22,6 +23,7 @@ use App\Models\ClasseSecondaire;
 use App\Models\ModalityPayement;
 use App\Models\VersementScolarite;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class Qs
 {
@@ -123,7 +125,7 @@ class Qs
     }
 
     // get classe time table
-    public static function getTimetableByClass(int $cl_id){
+    public static function getTimetableByClass(int $cl_id,$ansco){
         // $classe = Classe::where('id', $cl_id)->get();
         // dd($cl_id);
         $days = self::getDaysOfTheWeek();
@@ -133,10 +135,12 @@ class Qs
             $timeT = MatiereClassett::join('matieres','matieres.id','=','matiere_classetts.matiere_id')
                     ->join('classes','classes.id','=','matiere_classetts.classe_id')
                     ->join('jours','jours.id','=','matiere_classetts.jour_id')
+                    ->join('annee_scolaires as ansco','ansco.id','=','matiere_classetts.annee_scolaire_id')
                     ->where(
                             [
                                 'jours.id' => $day->id,
                                 'classes.id'=>$cl_id,
+                                'ansco.id'=>$ansco
                                 // 'matiere_classetts.matiere_id'=>$my_classe_subject->id_matiere
                             ])
                     ->select(
@@ -407,7 +411,8 @@ class Qs
 
     public static function getTeamAccount()
     {
-        return ['admin', 'super_admin', 'accountant'];// accountant comptable
+        // return ['admin', 'super_admin', 'accountant'];// accountant comptable
+        return [7,8,9];
     }
 
     public static function getTeamSAT()
@@ -433,7 +438,9 @@ class Qs
 
     public static function userIsTeamAccount()
     {
-        return in_array(Auth::user()->user_type, self::getTeamAccount());
+        return AvoirProfil::where('user_id',Auth::user()->id)
+        ->whereIn('profil_id',self::getTeamAccount())->get();
+        // return in_array(Auth::user()->user_type, self::getTeamAccount());
     }
 
     public static function userIsTeamSA()
@@ -620,9 +627,15 @@ class Qs
         return 'uploads/' . date('Y') . '/' . date('m') . '/' . date('d') . '/';
     }
 
-    public static function getUploadPath($user_type)
+    public static function getUploadPath()
     {
-        return 'uploads/' . $user_type . '/';
+        // return 'uploads/' . $user_phone . '/';
+        return '/storage/users/profile_images';
+    }
+
+    public static function getDefaultUserImage()
+    {
+        return '/storage/default_user_image/images/user.png';
     }
 
     public static function getFileMetaData($file)
@@ -713,6 +726,24 @@ class Qs
         return self::goToRoute($to)->with('flash_success', $msg);
     }
 
+    public static function getAllProfiles(){
+        return Profil::all();
+    }
 
+    // public static function getUserProfile()
+    // {
+    //     return AvoirProfil::where(['user_id'=> Auth::user()->id,''])
+        
+    // }
+
+    public static function getPanelOptions()
+    {
+        return '    <div class="header-elements">
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
+                </div>';
+    }
    
 }

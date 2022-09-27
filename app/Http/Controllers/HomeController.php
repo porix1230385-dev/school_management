@@ -2,27 +2,61 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Helpers\Qs;
+use App\Models\AvoirProfil;
+use App\Repositories\UserRepo;
+use Illuminate\Support\Facades\App;
 
 class HomeController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $user;
+    public function __construct(UserRepo $user)
     {
-        $this->middleware('auth');
+        $this->user = $user;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
     public function index()
     {
-        return view('home');
+        return redirect()->route('dashboard');
+    }
+
+    public function privacy_policy()
+    {
+        $data['app_name'] = config('app.name');
+        $data['app_url'] = config('app.url');
+        $data['contact_phone'] = Qs::getSetting('phone');
+        return view('pages.other.privacy_policy', $data);
+    }
+
+    public function terms_of_use()
+    {
+        $data['app_name'] = config('app.name');
+        $data['app_url'] = config('app.url');
+        $data['contact_phone'] = Qs::getSetting('phone');
+        return view('pages.other.terms_of_use', $data);
+    }
+
+    // public function dashboard(string $locale = null)
+    // {
+    //     // set app language
+    //     if ($locale != null) App::setLocale($locale);
+    //     // fetching datas
+    //     $d = [];
+    //     if (Qs::userIsTeamSAT())
+    //         $d['users'] = $this->user->getAll();
+    //     // display
+    //     return view('pages.support_team.dashboard', $d);
+    // }
+    public function dashboard(string $locale = null)
+    {
+      
+        // set app language
+        // if ($locale != null) App::setLocale($locale);
+        // // fetching datas
+        // $d = [];
+        // if (Qs::userIsTeamSAT())
+        //     $d['users'] = $this->user->getAll();
+        // display
+        return view('pages.support_team.dashboard');
     }
 }
