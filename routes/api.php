@@ -49,6 +49,9 @@ Route::group(['prefix' => 'auth'], function () {
         Route::get('/user', [AuthController::class, 'user']);
     });
 });
+//Nom d'utilisateur : c1884357c
+//Mot de passe : zndvp95h9FpBUNx
+// compte messagerie c1884357c@foloschool.management.com mdp = zndvp95h9FpBUNx
 
 // bd Utilisateur: c1884357c_folo_guest_2022_2023
 //Base de données: c1884357c_school_management
