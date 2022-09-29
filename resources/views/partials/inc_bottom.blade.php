@@ -15,6 +15,7 @@
 <!-- Bootstrap js-->
 <script src="{{asset('assets/js/bootstrap/popper.min.js')}}"></script>
 <script src="{{asset('assets/js/bootstrap/bootstrap.min.js')}}"></script>
+<script src="{{asset('assets/js/form-wizard/form-wizard-two.js')}}"></script>
 <!-- Plugins JS start-->
 <script src="https://laravel.pixelstrap.com/viho/assets/js/chart/chartist/chartist.js"></script>
 <script src="https://laravel.pixelstrap.com/viho/assets/js/chart/chartist/chartist-plugin-tooltip.js"></script>

@@ -612,6 +612,10 @@ class Qs
         return self::getSetting('current_session');
     }
 
+    public static function getASIdFromCurrentSession(){
+        return AnneeScolaire::where('libelle_as',self::getCurrentSession())->first()->id;
+    }
+
     public static function getSetting($type)
     {
         return Setting::where('type', $type)->first()->description;
@@ -635,7 +639,7 @@ class Qs
 
     public static function getDefaultUserImage()
     {
-        return '/storage/default_user_image/images/user.png';
+        return 'default_user_image/images/user.png';
     }
 
     public static function getFileMetaData($file)
@@ -667,8 +671,7 @@ class Qs
         $old_yr = explode('-', $oy);
         return ++$old_yr[0] . '-' . ++$old_yr[1];
     }
-
-    
+  
     public static function json($msg, $ok = TRUE, $arr = [])
     {
         return $arr ? response()->json($arr) : response()->json(['ok' => $ok, 'msg' => $msg]);

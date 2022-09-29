@@ -16,7 +16,16 @@ class EleveSeeder extends Seeder
      */
     public function run()
     {
-        //
+        //37
+        // 38
+        // 39
+        // 40
+        // 41
+        // 42
+        // 43
+        // 44
+        // 45
+        // 46
         // $dt = new DateTime();
         $statut_eleve = ['AF','NAF'];
         $villes = ['Abidjan','Yamoussoukro','Bouake','Ferkessedougou','Daloa','Bonoua','Daoukro','Gagnoa','Man','odienne'];
@@ -28,28 +37,70 @@ class EleveSeeder extends Seeder
             'lieu_naissance' =>$villes[array_rand($villes)],
             'nationnalite' => $nationnalites[array_rand($nationnalites)],
             'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
-            'user_id' => 19],
-            // [
-            // 'matricule' => strtoupper(Str::random(3)),
-            // 'date_naissance' => date('Y-m-d H:i:s'),
-            // 'lieu_naissance' =>$villes[array_rand($villes)],
-            // 'nationnalite' => $nationnalites[array_rand($nationnalites)],
-            // 'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
-            // 'user_id' => 21],
-            // [
-            // 'matricule' => strtoupper(Str::random(3)),
-            // 'date_naissance' => date('Y-m-d H:i:s'),
-            // 'lieu_naissance' =>$villes[array_rand($villes)],
-            // 'nationnalite' => $nationnalites[array_rand($nationnalites)],
-            // 'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
-            // 'user_id' => 22],
-            // [
-            // 'matricule' => strtoupper(Str::random(3)),
-            // 'date_naissance' => date('Y-m-d H:i:s'),
-            // 'lieu_naissance' =>$villes[array_rand($villes)],
-            // 'nationnalite' => $nationnalites[array_rand($nationnalites)],
-            // 'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
-            // 'user_id' => 23]
+            'user_id' =>37],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 38],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 39],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 40],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 41],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 42],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 43],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 44],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 45],
+            [
+            'matricule' => strtoupper(Str::random(3)),
+            'date_naissance' => date('Y-m-d H:i:s'),
+            'lieu_naissance' =>$villes[array_rand($villes)],
+            'nationnalite' => $nationnalites[array_rand($nationnalites)],
+            'statut_eleve' => $statut_eleve[array_rand($statut_eleve)],
+            'user_id' => 46],
         ];
         DB::table('eleves')->insert($data);     
 

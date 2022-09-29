@@ -4,23 +4,34 @@ namespace App\Http\Controllers\SupportTeam;
 
 use App\Models\Eleve;
 use Illuminate\Http\Request;
+use App\Repositories\UserRepo;
+use App\Repositories\MyClassRepo;
+use App\Repositories\StudentRepo;
 use App\Http\Controllers\Controller;
 
 class StudentRecordController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $loc, $my_class, $user, $student;
+
+    public function __construct(MyClassRepo $my_class, UserRepo $user, StudentRepo $student)
+    {
+        // $this->middleware('teamSA', ['only' => ['edit', 'update', 'reset_pass', 'create', 'store', 'graduated']]);
+        // $this->middleware('super_admin', ['only' => ['destroy',]]);
+
+        // $this->loc = $loc;
+        $this->my_class = $my_class;
+        $this->user = $user;
+        $this->student = $student;
+    }
+    
     public function index()
     {
         //
-        $students = Eleve::join('users','users.id','=','eleves.user_id')
-        ->select('users.*')
-        ->orderBy('nom','asc')
-        ->get();
+        $students = $this->student->getAllStudentNotIns();
+        // dd($students);
         return view('pages.support_team.students.listestudent',compact('students'));
+        
     }
 
     /**

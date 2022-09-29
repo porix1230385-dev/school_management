@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\Models\Cycle;
 use App\Models\Serie;
+use App\Models\Niveau;
 use App\Models\MyClass;
 use App\Models\Section;
 use App\Models\Subject;
@@ -16,9 +17,13 @@ use App\Models\ClassSubject;
 class MyClassRepo
 {
 
-    public function all()
+     /************* Niveaux *******************/
+    public function getClassLevel()
     {
-        return MyClass::orderBy('class_type_id', 'asc')->with('class_type')->get();
+        //->with('classes')
+        return Niveau::select('id as ID_level','libelle_niveau as levelName')
+        ->orderBy('level_grade', 'asc')
+        ->get();
     }
     
 
@@ -73,7 +78,7 @@ class MyClassRepo
             ->first();
     }
 
-    /************* Section *******************/
+    /************* Classes *******************/
 
     public function createSection($data)
     {

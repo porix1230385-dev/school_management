@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HelpController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\SuperAdmin\SchoolController;
@@ -41,7 +42,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/dashboard', [HomeController::class,'dashboard'])->name('dashboard');
     // Route::get('/dashboard', [HomeController::class,'dashboard'])->name('home');
     // Route::get('/dashboard', [HomeController::class,'dashboard'])->name('home');
-    Route::get('/home', [HomeController::class,'dashboard'])->name('home');
+    // Route::get('/home', [HomeController::class,'dashboard'])->name('home');
     Route::post('/logout',[LoginController::class,'logout'])->name('logout');
     // Route::get('/dashboard', 'HomeController@dashboard')->name('dashboard');
     // Route::get('/dashboard/{locale}', 'HomeController@dashboard')->name('lang.set');
@@ -59,7 +60,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 /*************** Payments *****************/
     Route::group(['prefix' => 'payments'],function(){
-        Route::get('manage/choice', [PaymentController::class,'getListChoice'])->name('payments.choice');
+        Route::get('/{student_id}', [PaymentController::class,'getViewInscription'])->name('payments.getView');
+        Route::post('/inscription',[PaymentController::class,'store'])->name('payments.store');
 
     });
     Route::resource('students',StudentRecordController::class);
@@ -70,9 +72,16 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::resource('grades', 'GradeController');
     // Route::resource('exams', 'ExamController');
     // Route::resource('dorms', 'DormController');
-    // Route::resource('payments', 'PaymentController');
+    // Route::resource('payments', [App\Http\Controllers\SupportTeam\PaymentController::class]);
 
     // Route::get('students/add',[StudentController::class,'add'])
+    // username = c1884357c_folo, mdp school_management
+
+    /** helpController**/
+    Route::get('get_classes', [HelpController::class,'get_classes'])->name('get_classes');
+
+    Route::get('get_sco_info',[HelpController::class,'get_sco_info'])->name('get_sco_info');
+
 });
 
 /************************ SUPER ADMIN ****************************///'namespace' => 'SuperAdmin',

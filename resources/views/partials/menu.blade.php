@@ -51,20 +51,24 @@
                         </a>
                     </li>
                     <!-- end test settings-->
+                    <li class="dropdown"><a class="nav-link menu-title" href="javascript:void(0)"><i data-feather="sliders"></i><span>Payments</span></a>
+                    <ul class="nav-submenu menu-content">
+                      <li><a href={{route('students.index')}}>Student List</a></li>
+                      <!-- <li><a href="base-input.html">Base Inputs</a></li>
+                      <li><a href="radio-checkbox-control.html">Checkbox & Radio</a></li>
+                      <li><a href="input-group.html">Input Groups</a></li>
+                      <li><a href="megaoptions.html">Mega Options </a></li> -->
+                    </ul>
+                  </li>
+                    <!-- stop-->
                     <li class="dropdown">
-                        <a class="nav-link menu-title link-nav" href="{{route('payments.choice')}}">
-                            <i data-feather="git-pull-request"></i>
-                            <span>Payments</span>
-                        </a>
-                    </li>
-                    <li class="dropdown">
-                        <a class="nav-link menu-title link-nav" href="{{route('payments.choice')}}">
+                        <a class="nav-link menu-title link-nav" href="#">
                             <i data-feather="git-pull-request"></i>
                             <span>Students</span>
                         </a>
                         <ul>
-                            <li>
-                                <a href="{{route('students.index')}}">Students list</a>
+                            <li class="dropdown">
+                                <a href="" class="nav-link menu-title link-nav"><i data-feather="git-pull-request"></i><span>Students list</span></a>
                             </li>
                         </ul>
                     </li>

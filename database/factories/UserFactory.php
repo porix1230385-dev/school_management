@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\helpers\Qs;
 use Illuminate\Support\Str;
 use App\Helpers\UsersHelpers;
 use Illuminate\Support\Facades\Hash;
@@ -28,13 +29,14 @@ class UserFactory extends Factory
             'email' => $this->faker->safeEmail,
             'genre' => $gender[array_rand($gender)],
             'email_verified_at' => now(),
-            'photo' => UsersHelpers::getDefaultUserImage(),
+            'photo' => Qs::getDefaultUserImage(),
             'adresse' =>$this->faker->address,
             'telephone1' => $this->faker->phoneNumber,
             'telephone2' => $this->faker->phoneNumber,
             'etat_user' => $etat_user[array_rand($etat_user)],
             'password' => $password, // password
-            'remember_token' => Str::random(10)
+            'remember_token' => Str::random(10),
+            'code' => strtoupper(Str::random(10)),
         ];
     }
 

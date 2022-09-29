@@ -10,6 +10,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Inscrire extends Model
 {
     use HasFactory;
+
+    protected $fillable =  [
+        'date_inscription',
+        'montant_inscription',
+        'eleve_id',
+       'annee_scolaire_id',
+        'classe_id',
+       'created_at',
+        'updated_at'
+    ];
     // fonction eleve
     public function eleve()
     {

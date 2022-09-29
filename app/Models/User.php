@@ -62,7 +62,7 @@ public $appends = ['profile_image_url',];
                 return asset('storage/'.$this->photo);
             }
             else{
-                return asset(Qs::getDefaultUserImage());
+                return asset('storage/'.Qs::getDefaultUserImage());
             }
             // return asset('/storage/uploads/profile_images/'.$this->photo);
 

@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 class AbsenceController extends Controller
 {
     //
+    protected $stu,$class,$subject;
+    // public function __construct(StudentRepo $stud,) 
+    // {
+
+    // }
 
     public function getAbsencesByStudent($student_id)
     {

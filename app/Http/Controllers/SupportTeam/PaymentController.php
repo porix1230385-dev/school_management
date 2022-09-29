@@ -4,67 +4,71 @@ namespace App\Http\Controllers\SupportTeam;
 
 // use App\Helpers\Qs;
 // use App\Helpers\Pay;
-use App\Http\Controllers\Controller;
+use PDF;
 // use App\Http\Requests\Payment\PaymentCreate;
 // use App\Http\Requests\Payment\PaymentUpdate;
 // use App\Models\Setting;
-// use App\Repositories\MyClassRepo;
+use App\helpers\Qs;
 // use App\Repositories\PaymentRepo;
-// use App\Repositories\StudentRepo;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use App\Repositories\MyClassRepo;
+use App\Repositories\PaymentRepo;
+use App\Repositories\StudentRepo;
+// use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
-use PDF;
+use App\Http\Requests\Payment\PaymentCreate;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class PaymentController extends Controller
 {
     protected $my_class, $pay, $student, $year;
     //MyClassRepo $my_class, PaymentRepo $pay, StudentRepo $student
 
-    public function __construct()
+    public function __construct(StudentRepo $student, MyClassRepo $my_class, PaymentRepo $pay)
     {
-        // $this->my_class = $my_class;
-        // $this->pay = $pay;
-        // $this->year = Qs::getCurrentSession();
-        // $this->student = $student;
+        $this->my_class = $my_class;
+        $this->pay = $pay;
+        $this->year = Qs::getCurrentSession();
+        $this->student = $student;
 
-        $this->middleware('teamAccount');
+        // $this->middleware('teamAccount');
     }
 
-    // public function index()
-    // {
-    //     $d['selected'] = false;
-    //     $d['years'] = $this->pay->getPaymentYears();
+    public function index()
+    {
+        // $d['selected'] = false;
+        // $d['years'] = $this->pay->getPaymentYears();
 
-    //     return view('pages.support_team.payments.index', $d);
-    // }
+        // return view('pages.support_team.payments.index', $d);
+    }
 
     // public function show($year)
     // {
-    //     $d['payments'] = $p = $this->pay->getPayment(['year' => $year])->get();
+    //     // $d['payments'] = $p = $this->pay->getPayment(['year' => $year])->get();
 
-    //     if (($p->count() < 1)) {
-    //         return Qs::goWithDanger('payments.index');
-    //     }
+    //     // if (($p->count() < 1)) {
+    //     //     return Qs::goWithDanger('payments.index');
+    //     // }
 
-    //     $d['selected'] = true;
-    //     $d['my_classes'] = $this->my_class->all();
-    //     $d['years'] = $this->pay->getPaymentYears();
-    //     $d['year'] = $year;
+    //     // $d['selected'] = true;
+    //     // $d['my_classes'] = $this->my_class->all();
+    //     // $d['years'] = $this->pay->getPaymentYears();
+    //     // $d['year'] = $year;
 
-    //     return view('pages.support_team.payments.index', $d);
+    //     // return view('pages.support_team.payments.index', $d);
     // }
 
     // public function select_year(Request $req)
     // {
-    //     return Qs::goToRoute(['payments.show', $req->year]);
+    //     // return Qs::goToRoute(['payments.show', $req->year]);
     // }
 
-    // public function create()
-    // {
-    //     $d['my_classes'] = $this->my_class->all();
-    //     return view('pages.support_team.payments.create', $d);
-    // }
+    public function create()
+    {
+        // $d['my_classes'] = $this->my_class->all();
+        // return view('pages.support_team.payments.create', $d);
+    }
 
     // public function invoice($st_id, $year = NULL)
     // {
@@ -205,37 +209,62 @@ class PaymentController extends Controller
     //     return Qs::goToRoute(['payments.manage', $class_id]);
     // }
 
-    // public function store(PaymentCreate $req)
-    // {
-    //     $data = $req->all();
-    //     $data['year'] = $this->year;
-    //     $data['ref_no'] = Pay::genRefCode();
-    //     $this->pay->create($data);
+    public function store(Request $req)
+    {
+       
+        // $req->validate([
+        //     'level'=>'required',
+        //     'mtn' => 'required',
+        // ]);
+        
+        
+        if(!$req->classes || $req->level == "..." || $req->classes == "...")
+        {
+            return redirect()->back()->withFail('Error message');
+        }
+        // dd($req);
+        if($req->student_id && $req->level && $req->classes && $req->mtn){
+            $student = $req->student_id;
+            // echo $student;
+            // die();
+            $class = $req->classes;
+            $mtn = $req->mtn;
+            $year_id = Qs::getASIdFromCurrentSession();
+            // $data['year'] = $this->year;
+            // $data['ref_no'] = Pay::genRefCode();
+            // die();
+            $this->pay->create($student,$class,$mtn,$year_id);
 
-    //     return Qs::jsonStoreOk();
-    // }
+            // return Qs::jsonStoreOk();
+            return redirect()->route('students.index')->withSuccess('Inscription effectuée.');
+            
+        }else{ return redirect()->back()->withFail('Ooops ! Veuillez remplir tous les champs.');}
+        
+        
 
-    // public function edit($id)
-    // {
-    //     $d['payment'] = $pay = $this->pay->find($id);
+    }
 
-    //     return is_null($pay) ? Qs::goWithDanger('payments.index') : view('pages.support_team.payments.edit', $d);
-    // }
+    public function edit($id)
+    {
+        // $d['payment'] = $pay = $this->pay->find($id);
 
-    // public function update(PaymentUpdate $req, $id)
-    // {
-    //     $data = $req->all();
-    //     $this->pay->update($id, $data);
+        // return is_null($pay) ? Qs::goWithDanger('payments.index') : view('pages.support_team.payments.edit', $d);
+    }
 
-    //     return Qs::jsonUpdateOk();
-    // }
+    public function update(PaymentUpdate $req, $id)
+    {
+        // $data = $req->all();
+        // $this->pay->update($id, $data);
 
-    // public function destroy($id)
-    // {
-    //     $this->pay->find($id)->delete();
+        // return Qs::jsonUpdateOk();
+    }
 
-    //     return Qs::deleteOk('payments.index');
-    // }
+    public function destroy($id)
+    {
+        // $this->pay->find($id)->delete();
+
+        // return Qs::deleteOk('payments.index');
+    }
 
     // public function reset_record($id)
     // {
@@ -245,8 +274,15 @@ class PaymentController extends Controller
 
     //     return back()->with('flash_success', __('msg.update_ok'));
     // }
-    public function getListChoice()
+    public function getViewInscription($stud_id)
     {
-        return view('pages.support_team.payments.choice');
+        $levels = $this->my_class->getClassLevel();
+        // dd($level);
+        $student = $this->student->findStudentNotInsByID($stud_id);
+        $year = $this->year;
+        // dd($student);
+        return view('pages.support_team.payments.inscription',compact('student','year','levels'));
     }
+
+    
 }

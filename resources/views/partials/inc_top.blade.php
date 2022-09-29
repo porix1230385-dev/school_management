@@ -15,7 +15,7 @@
 <!-- Font Awesome-->
 <script src="https://kit.fontawesome.com/027514023f.js" crossorigin="anonymous"></script>
 <!-- latest jquery-->
-<!-- <script src="{{--asset('assets/js/jquery-3.5.1.min.js')--}}"></script> -->
+<script src="{{asset('assets/js/jquery-3.5.1.min.js')}}"></script>
 <!-- <script src="{{--asset('assets/js/jquery-3.6.1.min.js')--}}"></script> -->
 <!-- ico-font-->
 <link rel="stylesheet" type="text/css" href="{{ asset('assets/css/icofont.css') }}">

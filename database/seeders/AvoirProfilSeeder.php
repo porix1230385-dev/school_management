@@ -17,16 +17,24 @@ class AvoirProfilSeeder extends Seeder
     {
         //
         $data = [
-            ['profil_id'=> 2,'user_id' => 35],
-            ['profil_id'=> 2,'user_id' => 36]
+            ['profil_id'=> 4,'user_id' => 37],
+            ['profil_id'=> 4,'user_id' => 38],
+            ['profil_id'=> 4,'user_id' => 39],
+            ['profil_id'=> 4,'user_id' => 40],
+            ['profil_id'=> 4,'user_id' => 41],
+            ['profil_id'=> 4,'user_id' => 42],
+            ['profil_id'=> 4,'user_id' => 43],
+            ['profil_id'=> 4,'user_id' => 44],
+            ['profil_id'=> 4,'user_id' => 45],
+            ['profil_id'=> 4,'user_id' => 46],
             // ['profil_id'=> 4,'user_id' => 22],
             // ['profil_id'=> 4,'user_id' => 23],
             // ['profil_id'=> 3,'user_id' => 24],
             // ['profil_id'=> 3,'user_id' => 25],
-            // ['profil_id'=> 2,'user_id' => 24],// user_id 24 a 02 profils parent et enseignant
+            // ['profil_id'=> 4,'user_id' => 24],// user_id 24 a 02 profils parent et enseignant
             // ['profil_id'=> 1,'user_id' => 25],// user_id 25 a 02 profils parent et instituteur
-            // ['profil_id'=> 2,'user_id' => 26],
-            // ['profil_id'=> 2,'user_id' => 27],
+            // ['profil_id'=> 4,'user_id' => 26],
+            // ['profil_id'=> 4,'user_id' => 27],
             // ['profil_id'=> 1,'user_id' => 28],
             // ['profil_id'=> 1,'user_id' => 29],
             // ['profil_id'=> 8,'user_id' => 30],

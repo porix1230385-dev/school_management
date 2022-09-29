@@ -2,7 +2,8 @@
 
 namespace App\Repositories;
 
-use App\Helpers\Qs;
+use App\helpers\Qs;
+use App\Models\Inscrire;
 // use App\Models\Payment;
 // use App\Models\PaymentRecord;
 // use App\Models\Receipt;
@@ -10,6 +11,7 @@ use App\Helpers\Qs;
 class PaymentRepo
 {
 
+    /** Inscriptions**/
     // public function all()
     // {
     //     return Payment::all();
@@ -40,10 +42,18 @@ class PaymentRepo
     //     return Payment::find($id);
     // }
 
-    // public function create($data)
-    // {
-    //     return Payment::create($data);
-    // }
+    public function create($stu_id,$class_id,$mtn,$year_id)
+    {
+        return Inscrire::create([
+            'date_inscription'=> date('Y-m-d H:i:s'),
+            'montant_inscription'=> $mtn,
+            'eleve_id'=>$stu_id,
+            'annee_scolaire_id'=>$year_id,
+            'classe_id'=>$class_id,
+            'created_at'=>now()->format('Y-m-d H:i:s'),
+            'updated_at'=>now()->format('Y-m-d H:i:s')
+        ]);
+    }
 
     // public function update($id, $data)
     // {

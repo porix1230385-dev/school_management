@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests\Payment;
 
-use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Request;
+// use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentCreate extends FormRequest
+class PaymentCreate extends Request
 {
 
     public function authorize()
@@ -20,8 +21,9 @@ class PaymentCreate extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required|string|min:3',
-            'amount' => 'required',
+            'student_id'=>'required',
+            'classes' => 'required',
+            'mtn' => 'required',
         ];
     }
 

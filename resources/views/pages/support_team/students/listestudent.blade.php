@@ -1,7 +1,6 @@
 @extends('layouts.master')
 
-
-@section('page_title', 'Matières')
+@section('page_title', 'Inscription|students')
 
 @section('content')
     <div class="page-body">
@@ -9,7 +8,7 @@
             <div class="page-header">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h3>Elèves - Gestion des Elèves</h3>
+                        <h3>Elèves - Gestion des Nouveaux Elèves</h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item">Session {{Qs::getCurrentSession()}}</li>
                         </ol>
@@ -61,7 +60,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5>Liste des matières</h5>
+                            <h5>New Student List</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -96,7 +95,7 @@
                                                         @if(Session('my_profile')->IDProfile == 2)
                                                         <a class="dropdown-item" href="#">
                                                             <i class="fa fa-add"> </i>Inscription</a>
-                                                        <a class="dropdown-item" href="#">
+                                                        <a class="dropdown-item" href="{{route('payments.getView',['student_id'=>$student->ID_Student])}}">
                                                             <i class="fa-sharp fa-solid fa-address-card"></i>(Ré)-inscription</a>
                                                         @endif
                                                         <a class="dropdown-item" href="#">
